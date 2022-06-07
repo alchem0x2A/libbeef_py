@@ -3009,7 +3009,8 @@ _randomvec_2000_str = """
 
 sio = StringIO(_randomvec_2000_str)
 sio.seek(0)
-RANDVEC_2000 = np.loadtxt(sio).astype(np.float64)
+# Transpose the matrix to M x 2000
+RANDVEC_2000 = np.loadtxt(sio).astype(np.float64).T
 
 # This is the random seed used for python-reconstructed norm vec, not the original C-version
 RANDOM_SEED = 42
