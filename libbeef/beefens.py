@@ -22,4 +22,26 @@ def gen_coeff_vec(rand_vec=RANDVEC_2000, beef_ensemble_matrix=BEEFMAT):
             rand_vec = rand_vec.T
             warnings.warn(f"Input random vector seems to be {vec_m} X {vec_n}, applied transposition.")
     a_vec = np.dot(beef_ensemble_matrix, rand_vec)
-    return a_vec
+    # Output shape of a_vec will have size (matrix_m + 1) x matrix_n
+    # a_vec_out[-1, i] = -a_vec[-1, i]
+    a_vec_out = np.vstack([a_vec, -a_vec[-1]])
+    return a_vec_out
+
+def gen_ensemble_energies(beefxc, coeff_vec):
+    """Calculate ensemble energies using formula
+    E_ens = Dot(beefxc, coeff_vec)
+    N           M+1     M+1 x N
+    """
+    beefxc = np.ravel(np.array(beefxc).astype(np.float64))
+    xc_size, = beefxc.shape
+    coeff_vec = np.array(coeff_vec).astype(np.float64)
+    vec_m, vec_n = coeff_vec.shape
+    if vec_m != xc_size:
+        if vec_n != xc_size:
+            raise ValueError("Input coefficient vector shape does not match beefxc")
+        else:
+            rand_vec = rand_vec.T
+            warnings.warn(f"Input coefficient vector seems to be {vec_m} X {vec_n}, applied transposition.")
+        
+    ens = np.dot(beefxc, coeff_vec)
+    return ens
