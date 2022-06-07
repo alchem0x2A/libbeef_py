@@ -3010,3 +3010,6 @@ _randomvec_2000_str = """
 sio = StringIO(_randomvec_2000_str)
 sio.seek(0)
 RANDVEC_2000 = np.loadtxt(sio).astype(np.float64)
+
+# This is the random seed used for python-reconstructed norm vec, not the original C-version
+RANDOM_SEED = 42
