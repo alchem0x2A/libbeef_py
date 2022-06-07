@@ -3014,3 +3014,4 @@ RANDVEC_2000 = np.loadtxt(sio).astype(np.float64).T
 
 # This is the random seed used for python-reconstructed norm vec, not the original C-version
 RANDOM_SEED = 42
+DEFAULT_RANDVEC_SIZE = 2000
